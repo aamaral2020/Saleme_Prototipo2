@@ -81,10 +81,10 @@ odoo.define('l10n_ar_pos_einvoice_ticket', function (require) {
                             model: 'account.move',
                             method: 'search_read',
                             args: [[['id', '=', account_move]], ['l10n_ar_afip_auth_code',
-                                                               'l10n_ar_afip_auth_code_due',
-                                                               'l10n_ar_afip_qr_code',
-                                                               'l10n_latam_document_type_id',
-                                                               ]],
+                                                                 'l10n_ar_afip_auth_code_due',
+                                                                 'l10n_ar_afip_qr_code',
+                                                                 'l10n_latam_document_type_id',
+                                                                ]],
                            }
 
                         ).then(function (invoices) {
@@ -92,6 +92,7 @@ odoo.define('l10n_ar_pos_einvoice_ticket', function (require) {
                             self.get_order().l10n_ar_afip_auth_code = invoices[0]['l10n_ar_afip_auth_code'];
                             self.get_order().l10n_ar_afip_auth_code_due = invoices[0]['l10n_ar_afip_auth_code_due'];
                             self.get_order().l10n_latam_document_type_id = invoices[0]['l10n_latam_document_type_id'][1].split(" ")[0];
+                            self.get_order().l10n_latam_document_name = invoices[0]['l10n_latam_document_type_id'][1].substr(invoices[0]['l10n_latam_document_type_id'][1].indexOf(" ") + 1);
                         });
                     }).catch(function(error){
                         return result
@@ -103,36 +104,5 @@ odoo.define('l10n_ar_pos_einvoice_ticket', function (require) {
         },
 
     })
-    // pos_model.Order = pos_model.Order.extend({
-    //     export_for_printing: function(){
-    //         // var self = this
-    //         // var receipt = SuperOrder.export_for_printing.call(this)
-    //         // if(self.invoice_id){
-    //         //     var invoice_id = self.invoice_id
-    //         //     var invoice = invoice_id.split("(")[0]
-    //         //     var invoice_number ="";
-    //         //     var invoice_letter="";
-    //         //     invoice_number = invoice_id.split("(")[0]
-    //         //     invoice_letter = invoice_id.split("(")[0].substring(3, 4);
-    //         //     //invoice_letter = orders[0]['account_move'][1].split(" ")[0].substring(3, 4);
-
-    //         //     receipt.street=street
-    //         //     receipt.city=city
-    //         //     receipt.invoice_id = invoice
-    //         //     receipt.invoice_number = invoice_number
-    //         //     receipt.invoice_letter = invoice_letter
-    //         //     receipt.l10n_ar_afip_auth_code=l10n_ar_afip_auth_code
-    //         //     receipt.l10n_ar_afip_qr_code=l10n_ar_afip_qr_code
-    //         //     receipt.l10n_ar_afip_auth_code_due=l10n_ar_afip_auth_code_due
-    //         //     receipt.l10n_latam_document_type_id=l10n_latam_document_type_id
-    //         //     receipt.invoice_date_due = invoice_date_due
-    //         //     receipt.l10n_ar_afip_start_date=l10n_ar_afip_start_date
-    //         //     receipt.l10n_ar_gross_income_number = l10n_ar_gross_income_number
-
-
-    //         // }
-    //         // return receipt
-    //     }
-    // })
 
 });
